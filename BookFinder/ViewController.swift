@@ -39,6 +39,7 @@ class ViewController: UIViewController {
         service.findBookById(id: docId!){ retBook in
             if let retBook = retBook {
                 myBook = retBook
+                print("Contact Found: \(myBook.toString())")
                 
                 
                 self.Id.text = myBook.BookId

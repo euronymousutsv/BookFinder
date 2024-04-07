@@ -8,8 +8,22 @@
 import UIKit
 
 class BookTVController: UITableViewController {
+    let service = BookRepository() //instace of book repository
+    var Books=[Book]() //creation of array to store Book
     
+    @IBOutlet var bookTableView: UITableView!
     
+    func loadImage(from url: URL, into imageView: UIImageView) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Error loading image: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            DispatchQueue.main.async {
+                imageView.image = UIImage(data: data)
+            }
+        }.resume()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,29 +33,73 @@ class BookTVController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        let docRef = service.db.collection("Book")
+            .addSnapshotListener{querySnapshot, error in
+                if let documents = querySnapshot?.documents {
+                    self.Books = documents.compactMap({queryDocumentSnapshot -> Book? in
+                        let data = queryDocumentSnapshot.data()
+                        return Book(BookId: queryDocumentSnapshot.documentID, dictionary: data)
+                    })
+                    
+ //                   for book in self.Books {
+  //                      print(book.toString())
+   //                 }
+                    self.bookTableView.reloadData()
+                }else{
+                    print("Error fetching documents\(error!)")
+                    return
+                }
+            }
+        
+        
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return Books.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "bookIdentifier", for: indexPath) as! BookTVCell
+        
+        let book = Books[indexPath.row]
+        
+        
+        
+        /*   if let url = URL(string: book.Image) {
+         URLSession.shared.dataTask(with: url) { data, response, error in
+         guard let data = data, error == nil else {
+         print("Error loading image: \(error?.localizedDescription ?? "Unknown error")")
+         return
+         }
+         DispatchQueue.main.async {
+         cell.BookImage.image = UIImage(data: data)
+         }
+         }.resume()
+         }*/
         // Configure the cell...
-
+         if !book.Image.isEmpty && UIImage(named: book.Image) != nil{
+        if let url = URL(string: book.Image){
+        loadImage(from: url, into: cell.BookImage)
+        }
+        cell.BookImage.image = UIImage(named: book.Image)
+        }else{
+         cell.BookImage.image=UIImage(systemName: "book.pages.fill")
+    }
+        cell.BookName.text = book.Name
+        cell.AuthorName.text = book.Author
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -89,3 +147,5 @@ class BookTVController: UITableViewController {
     */
 
 }
+
+
