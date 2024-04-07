@@ -89,7 +89,7 @@ class BookTVController: UITableViewController {
         // Configure the cell...
          if !book.Image.isEmpty && UIImage(named: book.Image) != nil{
         if let url = URL(string: book.Image){
-        loadImage(from: url, into: cell.BookImage)
+        loadImage(from: url, into: cell.BookImage) ///tried to load image from URL in the database but its not loading in UI
         }
         cell.BookImage.image = UIImage(named: book.Image)
         }else{
