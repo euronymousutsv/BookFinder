@@ -1,14 +1,16 @@
 //
-//  LoginController.swift
+//  ProfileController.swift
 //  BookFinder
 //
-//  Created by Utsav on 6/4/2024.
+//  Created by Utsav on 7/4/2024.
 //
 
 import UIKit
-
-class LoginController: UIViewController {
-
+import Firebase
+import FirebaseFirestore
+class ProfileController: UIViewController {
+    let database = Firestore.firestore()
+    var user = [User]()
     override func viewDidLoad() {
         super.viewDidLoad()
 
