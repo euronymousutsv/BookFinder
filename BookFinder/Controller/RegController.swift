@@ -64,10 +64,23 @@ class RegController: UIViewController {
                 else{
                     if let userID = authResult?.user.uid{
                         print("User ID:\(userID)")
+                        
+                        let user = User(FirstName: firstName!, LastName: lastName!, Address: address!, UID: userID)
+                        
+                        
+                        if self.service.addUser(user: user){
+                            self.showAlertMessage(title: "Successfully Registered", message: "User Added")
+                        }else{
+                            self.showAlertMessage(title: "Failed to Register", message: "User not Registered")
+                        }
                     //    let users = User(FirstName: FirstName.text, LastName: LastName.text, Address: Address.text, UID: userID)
                     }
                     
-                    self.performSegue(withIdentifier: "RegtoMain", sender: self)
+//                    self.performSegue(withIdentifier: "RegtoMain", sender: self)
+                    
+                    let ViewController = self.storyboard?.instantiateViewController(identifier: "Main") as? UINavigationController
+                    self.view.window?.rootViewController = ViewController
+                    self.view.window?.makeKeyAndVisible()
                                   }
             }
         }

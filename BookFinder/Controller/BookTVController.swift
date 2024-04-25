@@ -13,17 +13,7 @@ class BookTVController: UITableViewController {
     
     @IBOutlet var bookTableView: UITableView!
     
-    func loadImage(from url: URL, into imageView: UIImageView) {
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                print("Error loading image: \(error?.localizedDescription ?? "Unknown error")")
-                return
-            }
-            DispatchQueue.main.async {
-                imageView.image = UIImage(data: data)
-            }
-        }.resume()
-    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,14 +77,20 @@ class BookTVController: UITableViewController {
          }.resume()
          }*/
         // Configure the cell...
-         if !book.Image.isEmpty && UIImage(named: book.Image) != nil{
-        if let url = URL(string: book.Image){
-        loadImage(from: url, into: cell.BookImage) ///tried to load image from URL in the database but its not loading in UI
-        }
-        cell.BookImage.image = UIImage(named: book.Image)
-        }else{
-         cell.BookImage.image=UIImage(systemName: "book.pages.fill")
-    }
+        
+        cell.BookImage.image=UIImage(systemName:"book.pages.fill")
+        
+//        if !book.Image.isEmpty && UIImage(named: book.Image) != nil{
+//        if let url = URL(string: book.Image){
+//        loadImage(from: url, into: cell.BookImage) ///tried to load image from URL in the database but its not loading in UI
+//        }
+//        cell.BookImage.image = UIImage(named: book.Image)
+//        }else{
+//         cell.BookImage.image=UIImage(systemName: "book.pages.fill")
+//    }
+        if let url = URL(string: book.Image), !book.Image.isEmpty {
+                cell.BookImage.loadImage(from: url)
+            }
         cell.BookName.text = book.Name
         cell.AuthorName.text = book.Author
         return cell
@@ -146,6 +142,19 @@ class BookTVController: UITableViewController {
     }
     */
 
+}
+extension UIImageView {
+    func loadImage(from url: URL) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Error loading image: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            DispatchQueue.main.async {
+                self.image = UIImage(data: data)
+            }
+        }.resume()
+    }
 }
 
 

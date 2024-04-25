@@ -21,20 +21,43 @@ class LoginController: UIViewController {
    
     
     @IBAction func Register(_ sender: Any) {
-        if let email = email.text, let password = password.text{
-            Auth.auth().signIn(withEmail: email, password: password){ authResult ,error in
+        let email = email.text
+        if email!.isEmpty{
+         showAlertMessage(title: "Email is mandatory", message: "We need the User Email")
+            return
+        }
+        
+        let password = password.text
+        if password!.isEmpty{
+            showAlertMessage(title: "password is mandatory", message: "We need the user password")
+            return
+        }
+       
+       
+            Auth.auth().signIn(withEmail: email!, password: password!){ authResult ,error in
                 if let e = error, let authRe=authResult{
                     print(e)
                 }
                 else{
-                    
-                    self.performSegue(withIdentifier: "LogintoMain", sender: self)
+                    print(Auth.auth().currentUser?.email)
+                    let ViewController = self.storyboard?.instantiateViewController(identifier: "Main") as? UINavigationController
+                    self.view.window?.rootViewController = ViewController
+                    self.view.window?.makeKeyAndVisible()
                 }
                 
             }
         }
         
+    
+    func showAlertMessage(title : String, message: String){
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        self.present(alert, animated: true)
     }
+}
     
     /*
     // MARK: - Navigation
@@ -46,4 +69,4 @@ class LoginController: UIViewController {
     }
     */
 
-}
+
