@@ -7,10 +7,13 @@
 
 import UIKit
 import Firebase
-import FirebaseDatabase
+
 class profileController: UIViewController {
-
-
+    
+    let service = UserRepository()
+    var user=[User]()
+    
+    
     @IBOutlet weak var FirstName: UILabel!
     
     @IBOutlet weak var LastName: UILabel!
@@ -32,26 +35,38 @@ class profileController: UIViewController {
             print("Error signing out: %@", signOutError)
             
         }
-    
-
+        
+        
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        let userId=Auth.auth().currentUser?.uid
+        service.findUserById(id: userId!){[weak self] (fetchedUser) in
+            DispatchQueue.main.async{
+                if let user = fetchedUser {
+                    self?.FirstName.text = user.FirstName
+                    self?.LastName.text = user.LastName
+                    self?.Address.text = user.Address
+                }
+                
+                
+            }
+            
+            // Do any additional setup after loading the view.
+        }
+        
+        
+        /*
+         // MARK: - Navigation
+         
+         // In a storyboard-based application, you will often want to do a little preparation before navigation
+         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         // Get the new view controller using segue.destination.
+         // Pass the selected object to the new view controller.
+         }
+         */
+        
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

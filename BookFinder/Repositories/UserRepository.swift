@@ -37,7 +37,7 @@ public class UserRepository{
     }
     
     func updateUser(user: User)->Bool{
-    var result = true
+        var result = true
         let dictionary: [String:Any] = [
             "FirstName": user.FirstName,
             "LastName": user.LastName,
@@ -54,5 +54,24 @@ public class UserRepository{
             
         }
         return result
-}
-}
+    }
+    func findUserById(id: String, onCompletion : @escaping(User?)-> Void){
+        let docRef = db.collection("User").document(id)
+        
+        docRef.getDocument{(document, error) in
+            if let document = document, document.exists {
+                let userData = document.data() ?? [:]
+                let user = User(UID: document.documentID, dictionary: userData)
+                onCompletion(user)
+            }else{
+                print("Document does not exist")
+                onCompletion(nil)
+            }
+            
+        }
+    }
+  
+        
+        
+    }
+
