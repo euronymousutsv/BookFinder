@@ -35,6 +35,7 @@ public class User{
         return "UID: \(self.UID ?? ""), FirstName: \(self.FirstName)"
         
     }
+    
 
 
     }
