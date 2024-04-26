@@ -29,6 +29,8 @@
 		6FC4C4E12BC2A0D700808CB2 /* BookTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC4C4E02BC2A0D700808CB2 /* BookTVCell.swift */; };
 		6FC4C4E32BC2AB6D00808CB2 /* handleimageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC4C4E22BC2AB6D00808CB2 /* handleimageViewController.swift */; };
 		6FC4C4E52BC2D28500808CB2 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC4C4E42BC2D28500808CB2 /* UserRepository.swift */; };
+		6FF39C852BDB220600424B78 /* BookDetailsTVController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF39C842BDB220600424B78 /* BookDetailsTVController.swift */; };
+		6FF39C8B2BDB2D9E00424B78 /* profileUpdateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FF39C8A2BDB2D9E00424B78 /* profileUpdateVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +54,8 @@
 		6FC4C4E02BC2A0D700808CB2 /* BookTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTVCell.swift; sourceTree = "<group>"; };
 		6FC4C4E22BC2AB6D00808CB2 /* handleimageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = handleimageViewController.swift; sourceTree = "<group>"; };
 		6FC4C4E42BC2D28500808CB2 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
+		6FF39C842BDB220600424B78 /* BookDetailsTVController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookDetailsTVController.swift; sourceTree = "<group>"; };
+		6FF39C8A2BDB2D9E00424B78 /* profileUpdateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileUpdateVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +118,8 @@
 				6FC4C4A02BC08F2100808CB2 /* LoginController.swift */,
 				6FC4C4D82BC27F8400808CB2 /* BookTVController.swift */,
 				6F1DBACF2BDAA5BA00CA366F /* profileController.swift */,
+				6FF39C842BDB220600424B78 /* BookDetailsTVController.swift */,
+				6FF39C8A2BDB2D9E00424B78 /* profileUpdateVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -222,6 +228,8 @@
 				6FC4C4E52BC2D28500808CB2 /* UserRepository.swift in Sources */,
 				6FC4C48D2BBCCC4000808CB2 /* SceneDelegate.swift in Sources */,
 				6FC4C4B02BC098D400808CB2 /* RegController.swift in Sources */,
+				6FF39C8B2BDB2D9E00424B78 /* profileUpdateVC.swift in Sources */,
+				6FF39C852BDB220600424B78 /* BookDetailsTVController.swift in Sources */,
 				6FC4C49F2BBCCCA400808CB2 /* StartScreen.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -12,6 +12,7 @@ class profileController: UIViewController {
     
     let service = UserRepository()
     var user=[User]()
+    var users: User?
     
     
     @IBOutlet weak var FirstName: UILabel!
@@ -46,6 +47,7 @@ class profileController: UIViewController {
         service.findUserById(id: userId!){[weak self] (fetchedUser) in
             DispatchQueue.main.async{
                 if let user = fetchedUser {
+                    self?.users = user
                     self?.FirstName.text = user.FirstName
                     self?.LastName.text = user.LastName
                     self?.Address.text = user.Address
@@ -55,18 +57,26 @@ class profileController: UIViewController {
             }
             
             // Do any additional setup after loading the view.
-        }
+        }}
+    
+    
+    
+    
         
         
-        /*
+      
          // MARK: - Navigation
          
          // In a storyboard-based application, you will often want to do a little preparation before navigation
-         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destination.
-         // Pass the selected object to the new view controller.
-         }
-         */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        if let profileUpdateVC = segue.destination as? profileUpdateVC {
+            profileUpdateVC.user = users
+        }
         
     }
-}
+    
+        
+    }
+

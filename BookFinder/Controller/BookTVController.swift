@@ -10,7 +10,7 @@ import UIKit
 class BookTVController: UITableViewController {
     let service = BookRepository() //instace of book repository
     var Books=[Book]() //creation of array to store Book
-    
+    var selectedBook : Book!
     @IBOutlet var bookTableView: UITableView!
     
     
@@ -96,6 +96,11 @@ class BookTVController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath:IndexPath) -> IndexPath? {
+        self.selectedBook = Books[indexPath.row]
+        return indexPath
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -132,15 +137,19 @@ class BookTVController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        if let bookDetailTVC = segue.destination as? BookDetailsTVController {
+            bookDetailTVC.books = selectedBook
+        }
     }
-    */
+    
 
 }
 extension UIImageView {

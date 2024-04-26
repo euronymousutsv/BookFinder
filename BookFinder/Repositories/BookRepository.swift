@@ -29,4 +29,22 @@ public class BookRepository{
         
     }
     
+    func addComment(userEmail: String, Comment: String, bookID: String) -> Bool {
+        var result = true
+        let dictionary : [String : Any] = [
+            "userEmail": userEmail,
+            "Comment":Comment
+        ]
+        db.collection("Book/\(bookID)/Feedback").addDocument(data: dictionary){error in
+            if let error = error{
+                print("Comment Could not be added: \(Comment), error: \(error)")
+                result = false
+            }else{
+                print("Comment Added: \(Comment)")
+            }
+        }
+        
+        return result
+    }
+    
 }
