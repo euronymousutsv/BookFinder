@@ -42,6 +42,9 @@ class BookDetailsTVController: UITableViewController {
     @IBOutlet weak var CommentTxt: UITextView!
     
     
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         BookName.text = ("\(books.Name)")
@@ -116,15 +119,19 @@ class BookDetailsTVController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+       
+        if let commentTVC = segue.destination as? CommentTVC {
+            commentTVC.bookID = books.BookId
+        }
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     }
-    */
+    
     func showAlertMessage(title : String, message: String){
           
           let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
